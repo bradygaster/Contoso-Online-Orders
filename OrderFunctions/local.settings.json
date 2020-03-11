@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=contosoonline;AccountKey=k0QWAe5lYywWe7JwYqMy0GIBomei5e3DTlJuKt1pkofGly1D3AFE32iClri7u2/y9/jZWCCriEDp/qcQdkEssg==;EndpointSuffix=core.windows.net",
+    "OrderReceivedTopicEndpointUri" : "https://inventory.westus-1.eventgrid.azure.net/api/events",
+    "OrderReceivedTopicKeySetting" : "MdzAdg9BAAD5YhgFZuCUIa9p+p6lbXo9nl55av+YV8E=",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+  }
+}
