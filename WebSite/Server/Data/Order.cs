@@ -7,6 +7,8 @@ namespace Server.Data
     {
         public int Id { get; set; }
         public DateTime OrderTimeStamp { get; set; }
-        public List<CartItem> Cart { get; set; } = new List<CartItem>();
+        public DateTime? ReadyForShippingTimeStamp { get; set; }
+        public DateTime? ShippedTimeStamp { get; set; }
+        public List<CartItem> Items { get; set; }
     }
 }

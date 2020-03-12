@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Microsoft.OpenApi.Models;
+using Server.Data;
+using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contoso.Online.Orders.Server
 {
@@ -31,6 +34,12 @@ namespace Contoso.Online.Orders.Server
                     Title = "Contoso Online Orders", 
                     Version = "v1" 
                 });
+            });
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")
+                );
             });
         }
 
