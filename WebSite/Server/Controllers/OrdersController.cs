@@ -9,7 +9,7 @@ using Server.Data;
 
 namespace Contoso.Online.Orders.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
@@ -20,14 +20,21 @@ namespace Contoso.Online.Orders.Server.Controllers
             _context = context;
         }
 
-        // GET: api/Orders
+        [HttpPost]
+        public async Task<ActionResult<Order>> PostOrder(Order order)
+        {
+            _context.Order.Add(order);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
+        }
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             return await _context.Order.Include(x => x.Items).ToListAsync();
         }
 
-        // GET: api/Orders/5
         [HttpGet("{id}")]
         public ActionResult<Order> GetOrder(int id)
         {
@@ -97,18 +104,6 @@ namespace Contoso.Online.Orders.Server.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
-        }
-
-        // POST: api/Orders
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
-        {
-            _context.Order.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
     }
 }

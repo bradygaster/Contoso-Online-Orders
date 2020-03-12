@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Server.Data;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
+using Server.Infrastructure;
 
 namespace Contoso.Online.Orders.Server
 {
@@ -30,10 +31,11 @@ namespace Contoso.Online.Orders.Server
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
+                c.DocumentFilter<DefaultWebHostNameDocumentFilter>(Configuration);
                 c.SwaggerDoc("v1", new OpenApiInfo 
                 { 
                     Title = "Contoso Online Orders", 
-                    Version = "v1" 
+                    Version = "v1"
                 });
             });
             services.AddDbContext<ApplicationDbContext>(options =>

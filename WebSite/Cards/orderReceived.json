@@ -1,0 +1,41 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "Order #@{triggerBody()?['id']} Received",
+            "weight": "bolder"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Are these items in stock?"
+        },
+        {
+            "type": "Input.ChoiceSet",
+            "id": "IsInventoryAvailable",
+            "style": "expanded",
+            "value": "1",
+            "choices": [
+                {
+                    "title": "Yes",
+                    "value": "true"
+                },
+                {
+                    "title": "No",
+                    "value": "false"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Submit",
+            "title": "OK",
+            "data" : {
+             "orderId" : @{triggerBody()?['id']}
+            }
+        }
+    ]
+}
