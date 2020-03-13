@@ -14,7 +14,6 @@ variables:
   imageRepository: 'website:latest'
   containerRegistry: 'contosoorders.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/WebSite/Dockerfile'
-  tag: 'latest'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
