@@ -11,10 +11,9 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '0aae9da8-fa5f-4152-9b1d-5ac28481d9d2'
-  imageRepository: 'website'
+  imageRepository: 'website:latest'
   containerRegistry: 'contosoorders.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/WebSite/Dockerfile'
-  # tag: '$(Build.BuildId)'
   tag: 'latest'
   
   # Agent VM image name
@@ -36,5 +35,3 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
