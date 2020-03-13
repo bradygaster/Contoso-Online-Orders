@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Server.Data;
+using Server.Infrastructure;
 
 namespace Contoso.Online.Orders.Server.Controllers
 {
@@ -15,17 +17,33 @@ namespace Contoso.Online.Orders.Server.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public OrdersController(ApplicationDbContext context)
+        public IConfiguration Configuration { get; }
+
+        public OrdersController(ApplicationDbContext context, 
+            IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
+            // save the new order to the database
+            order.OrderTimeStamp = DateTime.Now;
             _context.Order.Add(order);
             await _context.SaveChangesAsync();
 
+            // fire the event to send the card
+            await EventGridEventer.FireEventAsync(
+                Configuration["InventorySubscriptionTopicEndpoint"],
+                Configuration["InventorySubscriptionTopicKey"],
+                "Contoso.OrderReceivedEvent",
+                $"Order #{order.Id} Received",
+                order.Id
+            );
+
+            // respond with the newly-created item and id
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
         

@@ -5,7 +5,6 @@ using AdaptiveCards;
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
-using Server.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Server.Controllers
@@ -25,8 +24,8 @@ namespace Server.Controllers
 
         public IConfiguration Configuration { get; }
 
-        [HttpGet("{orderId}/sendCheckInventoryCard")]
-        public async Task<ActionResult<string>> SendCheckInventoryCard(int orderId)
+        [HttpGet("{orderId}/createCheckInventoryCard")]
+        public async Task<ActionResult<string>> CreateCheckInventoryCard(int orderId)
         {
             var order = await _context.Order.Include(x => x.Items).FirstAsync(x => x.Id == orderId);
 
@@ -85,15 +84,6 @@ namespace Server.Controllers
 
             // get the json for the card 
             var json = card.ToJson();
-
-            // fire the event to send the card
-            await EventGridEventer.FireEventAsync(
-                Configuration["InventorySubscriptionTopicEndpoint"],
-                Configuration["InventorySubscriptionTopicKey"],
-                "Contoso.OrderReceivedEvent",
-                $"Order #{orderId} Received",
-                json
-            );
 
             return Ok(json);
         }
