@@ -4,6 +4,8 @@ using Server.Data;
 using AdaptiveCards;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using Server.Infrastructure;
 
 namespace Server.Controllers
 {
@@ -13,10 +15,14 @@ namespace Server.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public CardsController(ApplicationDbContext context)
+        public CardsController(ApplicationDbContext context, 
+            IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         [HttpGet("{orderId}/sendCheckInventoryCard")]
         public async Task<ActionResult<string>> SendCheckInventoryCard(int orderId)
@@ -61,6 +67,14 @@ namespace Server.Controllers
             });
 
             var json = card.ToJson();
+
+            await EventGridEventer.FireEventAsync(
+                Configuration["InventorySubscriptionTopicEndpoint"],
+                Configuration["InventorySubscriptionTopicKey"],
+                "Contoso.OrderReceivedEvent",
+                $"Order #{orderId} Received",
+                json
+            );
 
             return Ok(json);
         }
