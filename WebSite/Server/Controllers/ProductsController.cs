@@ -9,7 +9,7 @@ using Server.Data;
 namespace Contoso.Online.Orders.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

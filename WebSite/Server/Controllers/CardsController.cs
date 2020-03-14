@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CardsController : ControllerBase
     {

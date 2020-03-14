@@ -1,0 +1,85 @@
+﻿@page "/products"
+@using Contoso.Online.Orders.Shared
+@inject HttpClient Http
+
+<h1>Products</h1>
+
+<p>Add products to your cart and hit submit.</p>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="buttonCell"></th>
+                <th class="quantityCell">Quantity</th>
+                <th>Product</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td class="buttonCell">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-primary" @onclick="() => AddProductToCart(product.Id)">more</button>
+                            <button class="btn btn-secondary" @onclick="() => RemoveProductFromCart(product.Id)">less</button>
+                        </div>
+                    </td>
+                    <td class="quantityCell">@cart.FirstOrDefault(x => x.ProductId == product.Id)?.Quantity</td>
+                    <td>@product.Name</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="btn btn-success" @onclick="SubmitOrder">Submit</button>
+            </td>
+        </tfoot>
+    </table>
+}
+
+@code {
+    private Product[] products;
+    private List<CartItem> cart = new List<CartItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Http.GetJsonAsync<Product[]>("api/Products");
+    }
+
+    protected void AddProductToCart(int productId)
+    {
+        if(!cart.Any(x => x.ProductId == productId))
+            cart.Add(new CartItem { ProductId = productId, Quantity = 0});
+        cart.First(x => x.ProductId == productId).Quantity += 1;
+
+        StateHasChanged();
+    }
+
+    protected void RemoveProductFromCart(int productId)
+    {
+        if(!cart.Any(x => x.ProductId == productId)) return;
+        if(cart.First(x => x.ProductId == productId).Quantity == 1)
+            cart.RemoveAll(x => x.ProductId == productId);
+
+        cart.First(x => x.ProductId == productId).Quantity -= 1;
+
+        StateHasChanged();
+    }
+
+    protected async Task SubmitOrder()
+    {
+        var order = new Order();
+        order.Cart = cart;
+        await Http.PostJsonAsync("api/orders", order);
+        cart = new List<CartItem>();
+        StateHasChanged();
+    }
+}

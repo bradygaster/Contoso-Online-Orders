@@ -8,6 +8,14 @@ a, .btn-link {
     color: #0366d6;
 }
 
+.buttonCell {
+    width: 100px;
+}
+
+.quantityCell {
+    width: 80px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

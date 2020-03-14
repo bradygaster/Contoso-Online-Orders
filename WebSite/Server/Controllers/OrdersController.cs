@@ -11,7 +11,7 @@ using Server.Infrastructure;
 
 namespace Contoso.Online.Orders.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
