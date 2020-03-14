@@ -77,7 +77,10 @@ else
     protected async Task SubmitOrder()
     {
         var order = new Order();
-        order.Cart = cart;
+        foreach (var cartItem in cart)
+        {
+            order.Items.Add(cartItem);
+        }
         await Http.PostJsonAsync("api/orders", order);
         cart = new List<CartItem>();
         StateHasChanged();
