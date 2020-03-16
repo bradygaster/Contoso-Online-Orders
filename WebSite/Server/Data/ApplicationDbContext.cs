@@ -12,6 +12,7 @@ namespace Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("contoso");
             modelBuilder.Entity<Order>();
             modelBuilder.Entity<Product>();
             modelBuilder.Entity<CartItem>();
