@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Server.Data;
+using Contoso.Data;
 using Server.Infrastructure;
 
 namespace Contoso.Online.Orders.Server.Controllers

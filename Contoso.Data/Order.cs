@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Server.Data
+namespace Contoso.Data
 {
     public class Order
     {

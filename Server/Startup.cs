@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Microsoft.OpenApi.Models;
-using Server.Data;
+using Contoso.Data;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Server.Infrastructure;

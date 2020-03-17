@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Server.Data;
+using Contoso.Data;
 
 namespace Contoso.Online.Orders.Server.Controllers
 {

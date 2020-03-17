@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Server.Data;
+using Contoso.Data;
 
-namespace Server.Data
+namespace Contoso.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -44,7 +44,7 @@ namespace Server.Data
             });
         }
 
-        public DbSet<Server.Data.Product> Products { get; set; }
-        public DbSet<Server.Data.Order> Order { get; set; }
+        public DbSet<Contoso.Data.Product> Products { get; set; }
+        public DbSet<Contoso.Data.Order> Order { get; set; }
     }
 }

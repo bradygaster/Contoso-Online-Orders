@@ -1,4 +1,4 @@
-namespace Server.Data
+namespace Contoso.Data
 {
     public class Product
     {

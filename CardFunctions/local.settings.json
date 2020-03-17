@@ -1,9 +1,8 @@
 {
   "IsEncrypted": false,
   "Values": {
+    "SqlConnectionString": "",
     "AzureWebJobsStorage": "",
-    "OrderReceivedTopicEndpointUri" : "",
-    "OrderReceivedTopicKeySetting" : "",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet"
   }
 }
