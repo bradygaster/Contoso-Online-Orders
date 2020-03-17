@@ -9,6 +9,7 @@ COPY ["Contoso.Online.Orders.sln", "."]
 COPY ["Client/Contoso.Online.Orders.Client.csproj", "Client/"]
 COPY ["Server/Contoso.Online.Orders.Server.csproj", "Server/"]
 COPY ["Shared/Contoso.Online.Orders.Shared.csproj", "Shared/"]
+COPY ["Contoso.Data/Contoso.Data.csproj", "Contoso.Data/"]
 COPY . .
 WORKDIR "/src"
 RUN dotnet build -c Release -o /app/build
