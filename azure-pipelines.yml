@@ -13,7 +13,7 @@ variables:
   dockerRegistryServiceConnection: '12cb2b18-0a6b-425e-8edd-62db9fe77b57'
   imageRepository: 'website'
   containerRegistry: 'contosoorders.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/WebSite/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
